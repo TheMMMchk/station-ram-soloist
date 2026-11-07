@@ -67,10 +67,17 @@ echo "INFO: Скачивание Spotify Soloist..."
 
 # 6. Download libraries
 echo "INFO: Скачивание библиотек..."
+RELEASE="${RELEASE:-latest}"
+
+if [ "$RELEASE" != "latest" ]; then
+    RELEASE_URL="https://github.com/themmmchk/station-ram-soloist/releases/download/$RELEASE/lib.tar.gz"
+else
+    RELEASE_URL="https://github.com/themmmchk/station-ram-soloist/releases/latest/download/lib.tar.gz"
+fi
 
 "$CURL" -fL \
     -o "$RAM/lib.tar.gz" \
-    "https://github.com/themmmchk/station-ram-soloist/releases/latest/download/lib.tar.gz"
+    "$RELEASE_URL"
 
 # 7. Extract
 echo "INFO: Распаковка..."

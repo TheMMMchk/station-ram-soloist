@@ -54,6 +54,7 @@ if [ ! -f "$CONFIG/config.env" ]; then
     printf '%s\n' \
     'DEVICE_NAME="Yandex Station"' \
     'INITIAL_VOLUME=100' \
+    'RELEASE="latest"' \
     > "$CONFIG/config.env"
     echo "INFO: Создан файл конфигурации config.env"
 fi
