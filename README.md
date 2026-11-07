@@ -17,6 +17,10 @@
 - Вручную запустите `/data/opt/ramsoloist/start.sh`
 - Перезагрузите колонку — Soloist запустится автоматически.
 
+## Как устроено
+- `start.sh` скачивает через curl soloist в `/tmp/soloist/bin` также скачивает нужные библиотеки и запускает через них
+- `stop.sh` останавливает все процессы soloist и удаляет папку `/tmp/soloist`
+- `S99zzzramsoloist` запускает эти скрипты
 ## Особые благодарности
 [Horohi/soloist-station-lite](https://github.com/Horohi/soloist-station-lite) - за технические решения, использованные в этом проекте
 ## Лицензии
