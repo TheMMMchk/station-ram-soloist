@@ -21,7 +21,7 @@ fi
     exit 1
 }
 
-[ -s "$CONFIG/api_key" ] || {
+[ -s "$CONFIG/apikey" ] || {
     echo "ERROR: API key не найден." >&2
     exit 1
 }
