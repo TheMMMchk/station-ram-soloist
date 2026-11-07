@@ -1,2 +1,23 @@
-# station-ram-soloist
-Soloist for Yandex Stations. Runs from RAM on devices with limited storage
+# Spotify Soloist в ОЗУ для Яндекс Станций
+> [!IMPORTANT]
+> **Это экспериментальный проект**, который может работать нестабильно или не работать вовсе.
+>
+> Проверено только на Яндекс Станции Мини 2.
+
+> Репозиторий находится в разработке и пока ещё не готов к использованию
+## Установка
+1. Скачайте `install.sh` из релиза
+2. Запустите его на Яндекс станции
+3. Скрипт создаёт конфиг по пути `/data/opt/ramsoloist/config`.
+4. Измените содержание файла `/data/opt/ramsoloist/config/apikey` на свой ключ 
+## Запуск
+После установки `install.sh` не запускает Soloist автоматически
+
+Для запуска используйте один из способов:
+- Вручную запустите `/data/opt/ramsoloist/start.sh`
+- Перезагрузите колонку — Soloist запустится автоматически.
+
+## Особые благодарности
+[Horohi/soloist-station-lite](https://github.com/Horohi/soloist-station-lite) - за технические решения, использованные в этом проекте
+## Лицензии
+MIT License. Spotify Soloist является проприетарным программным обеспечением Spotify AB.
