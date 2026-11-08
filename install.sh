@@ -33,6 +33,8 @@ echo "INFO: Скачивание скриптов start.sh & stop.sh..."
 "$CURL" -fL -o "$ROOT/start.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/start.sh
 "$CURL" -fL -o "$ROOT/stop.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/stop.sh
 
+trap 'mount -o remount,ro /' EXIT
+
 mount -o remount,rw /
 
 echo "INFO: Скачивание init.d скрипта S99zzzramsoloist..."
@@ -40,8 +42,6 @@ echo "INFO: Скачивание init.d скрипта S99zzzramsoloist..."
 echo "INFO: Скачивание завершено."
 echo "INFO: Даем права на выполнение скриптов..."
 chmod +x "$ROOT/start.sh" "$ROOT/stop.sh" "/etc/init.d/S99zzzramsoloist"
-
-mount -o remount,ro /
 
 if [ ! -f "$CONFIG/apikey" ]; then
     printf 'dummy\n' > "$CONFIG/apikey"
