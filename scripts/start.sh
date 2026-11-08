@@ -63,35 +63,49 @@ mkdir -p "$RAM/bin" "$RAM/lib64" "$RAM/cache"
 
 # 5. Download Spotify Soloist
 echo "INFO: Скачивание Spotify Soloist..."
-
-"$CURL" -fL \
-    -o "$RAM/soloist_arm64.tar.gz" \
-    "https://soloist-builds.spotifycdn.com/soloist_release_arm64.tar.gz"
-
-# 6. Download libraries
-echo "INFO: Скачивание библиотек..."
-RELEASE="${RELEASE:-latest}"
-
-if [ "$RELEASE" != "latest" ]; then
-    RELEASE_URL="https://github.com/themmmchk/station-ram-soloist/releases/download/$RELEASE/lib.tar.gz"
-else
-    RELEASE_URL="https://github.com/themmmchk/station-ram-soloist/releases/latest/download/lib.tar.gz"
+if [ ! -f "$RAM/bin/soloist" ] && [ ! -f "$RAM/soloist_arm64.tar.gz" ]; then
+    "$CURL" -fL \
+        -o "$RAM/soloist_arm64.tar.gz" \
+        "https://soloist-builds.spotifycdn.com/soloist_release_arm64.tar.gz"
 fi
 
-"$CURL" -fL \
-    -o "$RAM/lib.tar.gz" \
-    "$RELEASE_URL"
+# 6. Download libraries
+if [ ! -f "$RAM/lib64/ld-linux-aarch64.so.1" ] || [ ! -f "$RAM/lib64/libpulse.so.0" ]; then
+    if [ ! -f "$RAM/lib.tar.gz" ]; then
+   
+        echo "INFO: Скачивание библиотек..."
+        RELEASE="${RELEASE:-latest}"
+
+        if [ "$RELEASE" != "latest" ]; then
+            RELEASE_URL="https://github.com/themmmchk/station-ram-soloist/releases/download/$RELEASE/lib.tar.gz"
+        else
+            RELEASE_URL="https://github.com/themmmchk/station-ram-soloist/releases/latest/download/lib.tar.gz"
+        fi
+
+        "$CURL" -fL \
+            -o "$RAM/lib.tar.gz" \
+            "$RELEASE_URL"
+    fi
+fi
 
 # 7. Extract
 echo "INFO: Распаковка..."
 
-gzip -t "$RAM/soloist_arm64.tar.gz"
-gzip -dc "$RAM/soloist_arm64.tar.gz" |
-    tar -xf - -C "$RAM/bin" ./soloist
+if [ ! -f "$RAM/bin/soloist" ]; then
+    gzip -t "$RAM/soloist_arm64.tar.gz"
+    gzip -dc "$RAM/soloist_arm64.tar.gz" |
+        tar -xf - -C "$RAM/bin" soloist
+fi
 
-gzip -t "$RAM/lib.tar.gz"
-gzip -dc "$RAM/lib.tar.gz" |
-    tar -xf - -C "$RAM/lib64"
+if [ -f "$RAM/lib.tar.gz" ]; then
+    gzip -t "$RAM/lib.tar.gz"
+    gzip -dc "$RAM/lib.tar.gz" |
+        tar -xf - -C "$RAM/lib64"
+fi
+
+# chmod +x 
+chmod +x "$RAM"/lib64/*
+chmod +x "$RAM"/bin/soloist
 
 # Remove archives to free RAM
 rm -f "$RAM/soloist_arm64.tar.gz" "$RAM/lib.tar.gz"
