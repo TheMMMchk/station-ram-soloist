@@ -21,10 +21,13 @@ fi
     exit 1
 }
 
-[ -s "$CONFIG/apikey" ] || {
+if [ ! -s "$CONFIG/apikey" ]; then
     echo "ERROR: API key не найден." >&2
     exit 1
-}
+elif [ "$(cat "$CONFIG/apikey")" = "dummy" ]; then
+    echo "ERROR: Пожалуйста, замените 'dummy' на ваш реальный API ключ Soloist в файле $CONFIG/apikey" >&2
+    exit 1
+fi
 
 . "$CONFIG/config.env"
 API_KEY="$(cat "$CONFIG/apikey")"
