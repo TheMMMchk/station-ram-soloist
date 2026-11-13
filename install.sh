@@ -32,6 +32,7 @@ echo "INFO: Создана директория $ROOT и $CONFIG"
 echo "INFO: Скачивание скриптов start.sh & stop.sh..."
 "$CURL" -fL -o "$ROOT/start.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/start.sh
 "$CURL" -fL -o "$ROOT/stop.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/stop.sh
+"$CURL" -fL -o "$ROOT/cacheguard.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/cacheguard.sh
 
 trap 'mount -o remount,ro /' EXIT
 

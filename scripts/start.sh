@@ -113,6 +113,10 @@ rm -f "$RAM/soloist_arm64.tar.gz" "$RAM/lib.tar.gz"
 # 8. Start Soloist
 mkdir -p "$ROOT/data"
 
+echo "INFO: Запуск cache guard..."
+
+"&ROOT/cacheguard.sh" &
+
 echo "INFO: Запуск Spotify Soloist..."
 
 APULSE_PLAYBACK_DEVICE=plug:default \
