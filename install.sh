@@ -30,8 +30,10 @@ CONFIG="$ROOT/config"
 mkdir -p "$CONFIG"
 echo "INFO: Создана директория $ROOT и $CONFIG"
 echo "INFO: Скачивание скриптов start.sh & stop.sh..."
-"$CURL" -fL -o "$ROOT/start.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/start.sh
 "$CURL" -fL -o "$ROOT/stop.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/stop.sh
+/bin/sh "$ROOT/stop.sh" || true
+
+"$CURL" -fL -o "$ROOT/start.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/start.sh
 "$CURL" -fL -o "$ROOT/cacheguard.sh" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/cacheguard.sh
 
 trap 'mount -o remount,ro /' EXIT
@@ -42,7 +44,7 @@ echo "INFO: Скачивание init.d скрипта S99zzzramsoloist..."
 "$CURL" -fL -o "/etc/init.d/S99zzzramsoloist" https://raw.githubusercontent.com/themmmchk/station-ram-soloist/main/scripts/S99zzzramsoloist
 echo "INFO: Скачивание завершено."
 echo "INFO: Даем права на выполнение скриптов..."
-chmod +x "$ROOT/start.sh" "$ROOT/stop.sh" "/etc/init.d/S99zzzramsoloist"
+chmod +x "$ROOT/start.sh" "$ROOT/stop.sh" "/etc/init.d/S99zzzramsoloist" "$ROOT/cacheguard.sh"
 
 if [ ! -f "$CONFIG/apikey" ]; then
     printf 'dummy\n' > "$CONFIG/apikey"

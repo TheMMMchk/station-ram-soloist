@@ -115,7 +115,7 @@ mkdir -p "$ROOT/data"
 
 echo "INFO: Запуск cache guard..."
 
-"&ROOT/cacheguard.sh" &
+"$ROOT/cacheguard.sh" &
 
 echo "INFO: Запуск Spotify Soloist..."
 
